@@ -1,7 +1,7 @@
 package termproject;
 
 /**
- * Title:        Project #7
+ * Title:        Project #7 
  * Description:
  * Copyright:    Copyright (c) 2001
  * Company:
