@@ -62,6 +62,43 @@ public class TwoFourTree
     public Object removeElement(Object key) throws ElementNotFoundException {
         return null;
     }
+    
+    /**
+     * Finds the first key greater that or equal to given key
+     * @param node 
+     * @param key
+     * @return index of first item greater than or equal
+     */
+    protected int findFirstGreaterThanOrEqual(TFNode node, int key) {
+        int i = 0;
+        for (; i < node.getNumItems(); i++) {
+            // Check for a valid item key
+            if (!treeComp.isComparable(node.getItem(i).key())) {
+                throw new TwoFourTreeException("Node key was not comparable");
+            }
+            // Check if item's key if equal
+            if (treeComp.isGreaterThanOrEqualTo(node.getItem(i).key(), key)) {
+                break;
+            }
+        }
+        return i;
+    }
+    
+    protected int whatChildIsThis(TFNode node) {
+        // Check for null parent
+        if (node.getParent() == null) {
+            throw new TwoFourTreeException("Node parent does not exist");
+        }
+        // Iterate through parent's child indices to check for self
+        int i = 0;
+        TFNode parent = node.getParent();
+        for (; i < parent.getNumItems(); i++) {
+            if (parent.getChild(i) == node) {
+                break;
+            }
+        }
+        return i;
+    }
 
     public static void main(String[] args) {
         Comparator myComp = new IntegerComparator();
