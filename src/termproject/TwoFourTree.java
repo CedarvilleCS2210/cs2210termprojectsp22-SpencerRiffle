@@ -41,7 +41,25 @@ public class TwoFourTree
      * @return object corresponding to key; null if not found
      */
     public Object findElement(Object key) {
-        return null;
+        TFNode currNode = treeRoot;
+        // Iterate through TwoFourTree, checking for key
+        while (true) {
+            int indice = findFirstGreaterThanOrEqual(currNode, key);
+            // If not the last child indice (i.e. no key), check if key matches
+            if (indice != currNode.getNumItems()) {
+                if (treeComp.isEqual(currNode.getItem(indice).key(), key)) {
+                    return currNode;
+                }
+            }
+            // If no match, enter the child if it exists
+            if (currNode.getChild(indice) != null) {
+                currNode = currNode.getChild(indice);
+            }
+            // Return null if no child exists
+            else {
+                return null;
+            }
+        }
     }
 
     /**
@@ -50,6 +68,7 @@ public class TwoFourTree
      * @param element to be inserted
      */
     public void insertElement(Object key, Object element) {
+        // TODO
     }
 
     /**
@@ -60,6 +79,7 @@ public class TwoFourTree
      * @exception ElementNotFoundException if the key is not in dictionary
      */
     public Object removeElement(Object key) throws ElementNotFoundException {
+        // TODO
         return null;
     }
     
@@ -69,7 +89,12 @@ public class TwoFourTree
      * @param key
      * @return index of first item greater than or equal
      */
-    protected int findFirstGreaterThanOrEqual(TFNode node, int key) {
+    protected int findFirstGreaterThanOrEqual(TFNode node, Object key) {
+        // Check for a valid user key
+        if (!treeComp.isComparable(key)) {
+            throw new TwoFourTreeException("User key was not comparable");
+        }
+        // Iterate through node's item indices
         int i = 0;
         for (; i < node.getNumItems(); i++) {
             // Check for a valid item key
