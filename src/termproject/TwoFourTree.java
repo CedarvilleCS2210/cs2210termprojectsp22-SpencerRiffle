@@ -124,6 +124,68 @@ public class TwoFourTree
         }
         return i;
     }
+    
+    /**
+     * Finds the in-order successor of the node
+     * @return the in-order successor of the given node
+     */
+    private Object inOrderSuccessor(TFNode node) {
+        // TODO
+        return null;
+    }
+    
+    /**
+     * Fixes any underflow in the given node within TwoFourTree
+     * @param node 
+     */
+    private void fixUnderflow(TFNode node) {
+        int MIN_ITEMS = 2;
+        // Check for parent
+        if (node.getParent() == null) {
+            // TODO: Do something
+        }
+        // Determine leftTranfser
+        if (whatChildIsThis(node) > 0) {
+            if (node.getParent().getChild(whatChildIsThis(node) - 1).getNumItems() >= MIN_ITEMS) {
+                leftTransfer(node);
+            }
+        }
+        // Determine rightTransfer
+        else if (whatChildIsThis(node) < node.getParent().getNumItems()) {
+            if (node.getParent().getChild(whatChildIsThis(node) + 1).getNumItems() >= MIN_ITEMS) {
+                rightTransfer(node);
+            }
+        }
+        // Determine leftFusion
+        else if (whatChildIsThis(node) > 0) {
+            if (node.getParent().getChild(whatChildIsThis(node) - 1).getNumItems() == 1) {
+                leftFusion(node);
+            }
+        }
+        // Determine rightFusion
+        else if (whatChildIsThis(node) > 0) {
+            if (node.getParent().getChild(whatChildIsThis(node) + 1).getNumItems() == 1) {
+                rightFusion(node);
+            }
+        }
+        // What if none of these work?
+    }
+    
+    private void leftTransfer(TFNode node) {
+        
+    }
+    
+    private void rightTransfer(TFNode node) {
+        
+    }
+    
+    private void leftFusion(TFNode node) {
+        
+    }
+    
+    private void rightFusion(TFNode node) {
+        
+    }
 
     public static void main(String[] args) {
         Comparator myComp = new IntegerComparator();
