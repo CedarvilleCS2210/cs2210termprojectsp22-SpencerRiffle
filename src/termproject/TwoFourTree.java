@@ -92,14 +92,14 @@ public class TwoFourTree
     protected int findFirstGreaterThanOrEqual(TFNode node, Object key) {
         // Check for a valid user key
         if (!treeComp.isComparable(key)) {
-            throw new TwoFourTreeException("User key was not comparable");
+            throw new TwoFourTreeException("User's key was not comparable");
         }
         // Iterate through node's item indices
         int i = 0;
         for (; i < node.getNumItems(); i++) {
             // Check for a valid item key
             if (!treeComp.isComparable(node.getItem(i).key())) {
-                throw new TwoFourTreeException("Node key was not comparable");
+                throw new TwoFourTreeException("Node's key was not comparable");
             }
             // Check if item's key if equal
             if (treeComp.isGreaterThanOrEqualTo(node.getItem(i).key(), key)) {
@@ -109,10 +109,15 @@ public class TwoFourTree
         return i;
     }
     
+    /**
+     * Finds the parent's index number of the given child node
+     * @param node
+     * @return parent's index number of the child
+     */
     protected int whatChildIsThis(TFNode node) {
         // Check for null parent
         if (node.getParent() == null) {
-            throw new TwoFourTreeException("Node parent does not exist");
+            throw new TwoFourTreeException("Node's parent does not exist");
         }
         // Iterate through parent's child indices to check for self
         int i = 0;
@@ -126,12 +131,15 @@ public class TwoFourTree
     }
     
     /**
-     * Finds the in-order successor of the node
+     * Finds the in-order successor of the item
      * @return the in-order successor of the given node
      */
-    private Object inOrderSuccessor(TFNode node) {
-        // TODO
-        return null;
+    private Item inOrderSuccessor(TFNode node, int key) {
+        // Get the right child
+        int childIndice = findFirstGreaterThanOrEqual(node, key) + 1;
+        TFNode child = node.getChild(childIndice);
+        // Return leftmost item
+        return child.getItem(0);
     }
     
     /**
@@ -140,12 +148,14 @@ public class TwoFourTree
      */
     private void fixUnderflow(TFNode node) {
         int MIN_ITEMS = 2;
-        // Check for parent
+        // Check for parent underflow (only occurs in root)
         if (node.getParent() == null) {
-            // TODO: Do something
+            // Set child to root and remove old node
+            treeRoot = node.getChild(0);
+            node = null;
         }
         // Determine leftTranfser
-        if (whatChildIsThis(node) > 0) {
+        else if (whatChildIsThis(node) > 0) {
             if (node.getParent().getChild(whatChildIsThis(node) - 1).getNumItems() >= MIN_ITEMS) {
                 leftTransfer(node);
             }
@@ -168,7 +178,6 @@ public class TwoFourTree
                 rightFusion(node);
             }
         }
-        // What if none of these work?
     }
     
     private void leftTransfer(TFNode node) {
