@@ -178,7 +178,7 @@ public class TwoFourTree
             }
         }
         // Determine rightFusion
-        else if (whatChildIsThis(node) > 0) {
+        else if (whatChildIsThis(node) < node.getParent().getNumItems()) {
             if (node.getParent().getChild(whatChildIsThis(node) + 1).getNumItems() == 1) {
                 rightFusion(node);
             }
@@ -210,15 +210,30 @@ public class TwoFourTree
     }
     
     private void rightTransfer(TFNode node) {
+        // Get parent and sibling information
+        TFNode parent = node.getParent();
+        int parentItemIndex = whatChildIsThis(node);
+        TFNode sibling = parent.getChild(parentItemIndex + 1);
         
+        // Store node that will be attached to underflowed node
+        TFNode transferNode = sibling.getChild(0);
+        // Remove leftChild's item (and shift children to correct pointers)
+        Item rightItem = sibling.removeItem(0);
+        // Replace parent with leftChild's item
+        Item parentItem = parent.replaceItem(parentItemIndex, rightItem);
+        // Insert parent's item into underflowed node
+        node.insertItem(0, parentItem);
+        // Fix pointer(s)
+        node.setChild(node.getNumItems(), transferNode);
     }
     
     private void leftFusion(TFNode node) {
         
+        // Check for underflow at end
     }
     
     private void rightFusion(TFNode node) {
-        
+        // Check for underflow at end
     }
 
     public static void main(String[] args) {
