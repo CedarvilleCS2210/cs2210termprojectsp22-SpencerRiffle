@@ -1,5 +1,8 @@
 package termproject;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Title:        Term Project 2-4 Trees
  * Description:
@@ -175,12 +178,16 @@ public class TwoFourTree
         else if (whatChildIsThis(node) > 0) {
             if (node.getParent().getChild(whatChildIsThis(node) - 1).getNumItems() == 1) {
                 leftFusion(node);
+                
+                // Check for underflow at end
             }
         }
         // Determine rightFusion
         else if (whatChildIsThis(node) < node.getParent().getNumItems()) {
             if (node.getParent().getChild(whatChildIsThis(node) + 1).getNumItems() == 1) {
                 rightFusion(node);
+                
+                // Check for underflow at end
             }
         }
     }
@@ -192,8 +199,8 @@ public class TwoFourTree
     private void leftTransfer(TFNode node) {
         // Get parent and sibling information
         TFNode parent = node.getParent();
-        int parentItemIndex = whatChildIsThis(node) - 1;
-        TFNode sibling = parent.getChild(parentItemIndex);
+        int siblingIndex = whatChildIsThis(node) - 1;
+        TFNode sibling = parent.getChild(siblingIndex);
         
         // Store node that will be attached to underflowed node
         TFNode transferNode = sibling.getChild(sibling.getNumItems());
@@ -202,38 +209,82 @@ public class TwoFourTree
         // Remove leftChild's item
         Item leftItem = sibling.deleteItem(sibling.getNumItems() - 1);
         // Replace parent with leftChild's item
-        Item parentItem = parent.replaceItem(parentItemIndex, leftItem);
+        Item parentItem = parent.replaceItem(siblingIndex, leftItem);
         // Insert parent's item into underflowed node
         node.insertItem(0, parentItem);
         // Fix pointer(s)
         node.setChild(0, transferNode);
     }
     
+    /**
+     * Moves right sibling's min Item to parent and parent Item to given node
+     * @param node 
+     */
     private void rightTransfer(TFNode node) {
         // Get parent and sibling information
         TFNode parent = node.getParent();
-        int parentItemIndex = whatChildIsThis(node);
-        TFNode sibling = parent.getChild(parentItemIndex + 1);
+        int siblingIndex = whatChildIsThis(node) + 1;
+        TFNode sibling = parent.getChild(siblingIndex);
         
         // Store node that will be attached to underflowed node
         TFNode transferNode = sibling.getChild(0);
         // Remove leftChild's item (and shift children to correct pointers)
         Item rightItem = sibling.removeItem(0);
         // Replace parent with leftChild's item
-        Item parentItem = parent.replaceItem(parentItemIndex, rightItem);
+        Item parentItem = parent.replaceItem(siblingIndex - 1, rightItem);
         // Insert parent's item into underflowed node
         node.insertItem(0, parentItem);
         // Fix pointer(s)
         node.setChild(node.getNumItems(), transferNode);
     }
     
+    /**
+     * Moves parent to left sibling's max item, removing current node
+     * @param node 
+     */
     private void leftFusion(TFNode node) {
+        // WARNING:
+        // This removes the original node from the tree completely
         
-        // Check for underflow at end
+        // Get parent and sibling information
+        TFNode parent = node.getParent();
+        int siblingIndex = whatChildIsThis(node) - 1;
+        TFNode sibling = parent.getChild(siblingIndex);
+        
+        // Get parentItem
+        Item parentItem = parent.getItem(siblingIndex);
+        // Remove parent item from its node (drops sibling)
+        parent.removeItem(siblingIndex);
+        // Move parentItem to sibling
+        sibling.insertItem(sibling.getNumItems(), parentItem);
+        // Store node that will be reattached
+        TFNode transferNode = node.getChild(node.getNumItems());
+        
+        // Fix pointer(s)
+        sibling.setChild(sibling.getNumItems(), transferNode);
+        parent.setChild(0, sibling);
     }
     
     private void rightFusion(TFNode node) {
-        // Check for underflow at end
+        // WARNING:
+        // This removes the original node from the tree completely
+        
+        // Get parent and sibling information
+        TFNode parent = node.getParent();
+        int siblingIndex = whatChildIsThis(node) + 1;
+        TFNode sibling = parent.getChild(siblingIndex);
+        
+        // Get parentItem (and fix pointers)
+        Item parentItem = parent.getItem(siblingIndex - 1);
+        // Remove parent item from its node (and remove underflowed node)
+        parent.removeItem(siblingIndex - 1);
+        // Move parentItem to sibling
+        sibling.insertItem(0, parentItem);
+        // Store node that will be reattached
+        TFNode transferNode = node.getChild(node.getNumItems());
+        
+        // Fix pointer(s)
+        sibling.setChild(0, transferNode);
     }
 
     public static void main(String[] args) {
