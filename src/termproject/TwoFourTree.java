@@ -135,10 +135,15 @@ public class TwoFourTree
      * @return the in-order successor of the given node
      */
     private Item inOrderSuccessor(TFNode node, int key) {
-        // Get the right child
-        int childIndice = findFirstGreaterThanOrEqual(node, key) + 1;
+        // Find Item's left child
+        int childIndice = findFirstGreaterThanOrEqual(node, key);
+        // Switch to right child unless indice was already the right child
+        if (childIndice < node.getNumItems()) {
+            childIndice++;
+        }
+        // Get child at index
         TFNode child = node.getChild(childIndice);
-        // Return leftmost item
+        // Return leftmost Item in child
         return child.getItem(0);
     }
     
