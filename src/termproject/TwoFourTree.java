@@ -149,7 +149,7 @@ public class TwoFourTree
     
     /**
      * Fixes any underflow in the given node within TwoFourTree
-     * @param node 
+     * @param node Node that was underflowed
      */
     private void fixUnderflow(TFNode node) {
         int MIN_ITEMS = 2;
@@ -185,8 +185,28 @@ public class TwoFourTree
         }
     }
     
+    /**
+     * Moves left sibling's max Item to parent and parent Item to given node
+     * @param node 
+     */
     private void leftTransfer(TFNode node) {
+        // Get parent and sibling information
+        TFNode parent = node.getParent();
+        int parentItemIndex = whatChildIsThis(node) - 1;
+        TFNode sibling = parent.getChild(parentItemIndex);
         
+        // Store node that will be attached to underflowed node
+        TFNode transferNode = sibling.getChild(sibling.getNumItems());
+        // Remove transferNode from sibling's children
+        sibling.setChild(sibling.getNumItems(), null);
+        // Remove leftChild's item
+        Item leftItem = sibling.deleteItem(sibling.getNumItems() - 1);
+        // Replace parent with leftChild's item
+        Item parentItem = parent.replaceItem(parentItemIndex, leftItem);
+        // Insert parent's item into underflowed node
+        node.insertItem(0, parentItem);
+        // Fix pointer(s)
+        node.setChild(0, transferNode);
     }
     
     private void rightTransfer(TFNode node) {
