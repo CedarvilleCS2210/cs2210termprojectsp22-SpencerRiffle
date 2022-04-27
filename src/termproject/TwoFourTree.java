@@ -102,6 +102,19 @@ public class TwoFourTree
      */
     public Object removeElement(Object key) throws ElementNotFoundException {
         // TODO
+        
+        // Find node containing key
+        TFNode elementNode = (TFNode)findElement(key);
+        // If key does not exist
+        if (elementNode == null) {
+            throw new TwoFourTreeException("Key to remove not found");
+        }
+        
+        // If key exists
+        Item item = inOrderSuccessor(elementNode, key);
+        
+        // Continue remove based on leaf or not
+        
         return null;
     }
     
@@ -156,7 +169,7 @@ public class TwoFourTree
      * Finds the in-order successor of the item
      * @return the in-order successor of the given node
      */
-    private Item inOrderSuccessor(TFNode node, int key) {
+    private Item inOrderSuccessor(TFNode node, Object key) {
         // Find Item's left child
         int childIndice = findFirstGreaterThanOrEqual(node, key);
         // Switch to right child unless indice was already the right child
