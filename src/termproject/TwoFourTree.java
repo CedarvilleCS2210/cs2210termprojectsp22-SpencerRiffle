@@ -74,14 +74,13 @@ public class TwoFourTree
     public void insertElement(Object key, Object element) {
         // Create item
         Item item = new Item(key, element);
+        
+        // Check empty tree
+        if(treeRoot == null) {
+            treeRoot = new TFNode();
+        }
         // Node to keep track of place in tree
         TFNode curr = treeRoot;
-        
-        //insertElement into an empty tree
-        if(curr == null) {
-            curr.insertItem(0, item);
-            curr.setChild(1, null);
-        }
         
         int index = findFirstGreaterThanOrEqual(curr, key);
         // Find leaf node to insert at
