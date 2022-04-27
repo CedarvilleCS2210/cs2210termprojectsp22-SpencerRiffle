@@ -127,25 +127,18 @@ public class TwoFourTree
             return returnItem;
         }
         else {
-            //Set up pointer to node that inorder successor is in
+            // Get inOrderSuccessor node
             TFNode currChild = (TFNode) findElement(inOrS.key());
-            
-            //replace item you want to remove with the inorder successor
-            //and replaceItem will return the item you want to remove
+            // Replace item to remove with the inOrderSuccessor...
             returnItem = elementNode.replaceItem(index, inOrS);
-            
-            //find the index of the inorder successor in the node it was originally
-            //in
+            // Find index of inOrderSuccessor in the node it was originally in
             index = findFirstGreaterThanOrEqual(currChild, inOrS.key());
-            
-            //Do a shifting remove on the inorder successor
+            // Do a shifting remove on the inOrderSuccessor
             Item removedItem = currChild.removeItem(index);
-            
-            //check underflow
+            // Check underflow
             if(currChild.getNumItems() == 0) {
                 fixUnderflow(currChild);
             }
-            
             //return item
             return returnItem;
         }
