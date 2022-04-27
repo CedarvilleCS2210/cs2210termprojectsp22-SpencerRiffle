@@ -76,6 +76,13 @@ public class TwoFourTree
         Item item = new Item(key, element);
         // Node to keep track of place in tree
         TFNode curr = treeRoot;
+        
+        //insertElement into an empty tree
+        if(curr == null) {
+            curr.insertItem(0, item);
+            curr.setChild(1, null);
+        }
+        
         int index = findFirstGreaterThanOrEqual(curr, key);
         // Find leaf node to insert at
         while (curr.getChild(index) != null) {
@@ -423,63 +430,103 @@ public class TwoFourTree
 
         Integer myInt1 = new Integer(47);
         myTree.insertElement(myInt1, myInt1);
+        myTree.printAllElements();
+        myTree.checkTree();
+        
         Integer myInt2 = new Integer(83);
         myTree.insertElement(myInt2, myInt2);
+        myTree.printAllElements();
+        myTree.checkTree();
+        
         Integer myInt3 = new Integer(22);
         myTree.insertElement(myInt3, myInt3);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt4 = new Integer(16);
         myTree.insertElement(myInt4, myInt4);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt5 = new Integer(49);
         myTree.insertElement(myInt5, myInt5);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt6 = new Integer(100);
         myTree.insertElement(myInt6, myInt6);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt7 = new Integer(38);
         myTree.insertElement(myInt7, myInt7);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt8 = new Integer(3);
         myTree.insertElement(myInt8, myInt8);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt9 = new Integer(53);
         myTree.insertElement(myInt9, myInt9);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt10 = new Integer(66);
         myTree.insertElement(myInt10, myInt10);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt11 = new Integer(19);
         myTree.insertElement(myInt11, myInt11);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt12 = new Integer(23);
         myTree.insertElement(myInt12, myInt12);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt13 = new Integer(24);
         myTree.insertElement(myInt13, myInt13);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt14 = new Integer(88);
         myTree.insertElement(myInt14, myInt14);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt15 = new Integer(1);
         myTree.insertElement(myInt15, myInt15);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt16 = new Integer(97);
         myTree.insertElement(myInt16, myInt16);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt17 = new Integer(94);
         myTree.insertElement(myInt17, myInt17);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt18 = new Integer(35);
         myTree.insertElement(myInt18, myInt18);
+        myTree.printAllElements();
+        myTree.checkTree();
 
         Integer myInt19 = new Integer(51);
         myTree.insertElement(myInt19, myInt19);
+        myTree.checkTree();
 
         myTree.printAllElements();
         System.out.println("done");
 
         myTree = new TwoFourTree(myComp);
+        
         final int TEST_SIZE = 10000;
 
 
