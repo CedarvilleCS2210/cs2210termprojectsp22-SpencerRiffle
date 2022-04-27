@@ -113,9 +113,42 @@ public class TwoFourTree
         // If key exists
         Item item = inOrderSuccessor(elementNode, key);
         
-        // Continue remove based on leaf or not
+        Item returnItem = new Item();
         
-        return null;
+        int index = findFirstGreaterThanOrEqual(elementNode, key);
+        // Continue remove based on leaf or not
+        if(elementNode.getChild(0) == null) {
+            returnItem = elementNode.removeItem(index);
+            
+            if(elementNode.getNumItems() == 0) {
+                fixUnderflow(elementNode);
+            }
+            
+            return returnItem;
+        }
+        else {
+            //Set up pointer to node that inorder successor is in
+            TFNode currChild = (TFNode) findElement(item.key());
+            
+            //replace item you want to remove with the inorder successor
+            //and replaceItem will return the item you want to remove
+            returnItem = elementNode.replaceItem(index, item);
+            
+            //find the index of the inorder successor in the node it was originally
+            //in
+            index = findFirstGreaterThanOrEqual(currChild, item.key());
+            
+            //Do a shifting remove on the inorder successor
+            Item removedItem = currChild.removeItem(index);
+            
+            //check underflow
+            if(currChild.getNumItems() == 0) {
+                fixUnderflow(currChild);
+            }
+            
+            //return item
+            return returnItem;
+        }
     }
     
     /**
@@ -178,6 +211,11 @@ public class TwoFourTree
         }
         // Get child at index
         TFNode child = node.getChild(childIndice);
+        
+        while(child.getChild(0) != null) {
+            child = child.getChild(0);
+        }
+        
         // Return leftmost Item in child
         return child.getItem(0);
     }
