@@ -72,7 +72,25 @@ public class TwoFourTree
      * @param element to be inserted
      */
     public void insertElement(Object key, Object element) {
-        // TODO
+        // Create item
+        Item item = new Item(key, element);
+        // Node to keep track of place in tree
+        TFNode curr = treeRoot;
+        int index = findFirstGreaterThanOrEqual(curr, key);
+        // Find leaf node to insert at
+        while (curr.getChild(index) != null) {
+            curr = curr.getChild(index);
+            index = findFirstGreaterThanOrEqual(curr, key);
+        }
+        
+        // At a leaf; insert item
+        curr.insertItem(index, item);
+        // Fix pointer(s) (must be null, because inserting at leaf)
+        curr.setChild(index + 1, null);
+        // Check for overflow
+        if (curr.getNumItems() > curr.getMaxItems()) {
+            fixOverflow(curr);
+        }
     }
 
     /**
@@ -186,6 +204,10 @@ public class TwoFourTree
             // Fix pointer(s)
             parent.setChild(index + 1, newNode);
             newNode.setParent(parent);
+            // Check for parent overflow
+            if (parent.getNumItems() > parent.getMaxItems()) {
+                fixOverflow(parent);
+            }
         }
         // Otherwise, create a new parent
         else {
