@@ -150,44 +150,55 @@ public class TwoFourTree
         return child.getItem(0);
     }
     
+    private void fixOverflow(TFNode node) {
+        // TODO
+    }
+    
     /**
      * Fixes any underflow in the given node within TwoFourTree
      * @param node Node that was underflowed
      */
     private void fixUnderflow(TFNode node) {
         int MIN_ITEMS = 2;
+        TFNode parent = node.getParent();
         // Check for parent underflow (only occurs in root)
-        if (node.getParent() == null) {
+        if (parent == null) {
             // Set child to root and remove old node
             treeRoot = node.getChild(0);
             node = null;
         }
         // Determine leftTranfser
         else if (whatChildIsThis(node) > 0) {
-            if (node.getParent().getChild(whatChildIsThis(node) - 1).getNumItems() >= MIN_ITEMS) {
+            if (parent.getChild(whatChildIsThis(node) - 1).getNumItems() >= MIN_ITEMS) {
                 leftTransfer(node);
             }
         }
         // Determine rightTransfer
-        else if (whatChildIsThis(node) < node.getParent().getNumItems()) {
-            if (node.getParent().getChild(whatChildIsThis(node) + 1).getNumItems() >= MIN_ITEMS) {
+        else if (whatChildIsThis(node) < parent.getNumItems()) {
+            if (parent.getChild(whatChildIsThis(node) + 1).getNumItems() >= MIN_ITEMS) {
                 rightTransfer(node);
             }
         }
         // Determine leftFusion
         else if (whatChildIsThis(node) > 0) {
-            if (node.getParent().getChild(whatChildIsThis(node) - 1).getNumItems() == 1) {
+            if (parent.getChild(whatChildIsThis(node) - 1).getNumItems() == 1) {
                 leftFusion(node);
                 
                 // Check for underflow at end
+                if (parent.getNumItems() == 0) {
+                    fixUnderflow(parent);
+                }
             }
         }
         // Determine rightFusion
-        else if (whatChildIsThis(node) < node.getParent().getNumItems()) {
-            if (node.getParent().getChild(whatChildIsThis(node) + 1).getNumItems() == 1) {
+        else if (whatChildIsThis(node) < parent.getNumItems()) {
+            if (parent.getChild(whatChildIsThis(node) + 1).getNumItems() == 1) {
                 rightFusion(node);
                 
                 // Check for underflow at end
+                if (parent.getNumItems() == 0) {
+                    fixUnderflow(parent);
+                }
             }
         }
     }
@@ -262,9 +273,13 @@ public class TwoFourTree
         
         // Fix pointer(s)
         sibling.setChild(sibling.getNumItems(), transferNode);
-        parent.setChild(0, sibling);
+        parent.setChild(siblingIndex, sibling);
     }
     
+    /**
+     * Moves parent to right sibling's min item, removing current node
+     * @param node 
+     */
     private void rightFusion(TFNode node) {
         // WARNING:
         // This removes the original node from the tree completely
