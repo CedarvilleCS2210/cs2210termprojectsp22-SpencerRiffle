@@ -44,6 +44,7 @@ public class TwoFourTree
      * @return object corresponding to key; null if not found
      */
     public Object findElement(Object key) {
+        // Node containing the value
         TFNode currNode = treeRoot;
         // Iterate through TwoFourTree, checking for key
         while (true) {
@@ -151,32 +152,22 @@ public class TwoFourTree
     }
     
     private void fixOverflow(TFNode node) {
-        // Create overflowItem to store item to overflow
+        // Item to be overflowed to new node
         Item overflowItem;
-        // Create a new node to contain the overflowed value
+        // Item to be shifted to parent
+        Item parentItem;
+        // Node to contain the overflowed value
         TFNode newNode = new TFNode();
+        // Parent node
+        TFNode parent;
         
-        // Get overflowed item
-        if (whatChildIsThis(node) == node.getParent().getNumItems()) {
-            // If rightmost child, overflow leftmost item
-            overflowItem = node.getItem(0);
-            // Remove overflowed item from node
-            node.removeItem(0);
-        }
-        else {
-            // Overflow rightmost item
-            overflowItem = node.getItem(node.getNumItems() - 1);
-            // Remove overflowed item from node
-            node.deleteItem(node.getNumItems());
-            
-            // TODO: FIX
-        }
-        
-        // TODO: FIX
+        // Get & delete overflowed item
+        overflowItem = node.deleteItem(node.getNumItems() - 1);
+        // Get & delete node to be new parent item
+        parentItem = node.deleteItem(node.getNumItems() - 1);
         
         // Move overflowed item to new node
         newNode.insertItem(newNode.getNumItems(), overflowItem);
-        
         // Shift node's overflowed child pointers to new node's child pointers
         newNode.setChild(0, node.getChild(node.getMaxItems()));
         newNode.setChild(newNode.getNumItems(), node.getChild(node.getMaxItems() + 1));
@@ -186,18 +177,29 @@ public class TwoFourTree
         
         // If parent exists, move into parent
         if (node.getParent() != null) {
-            // Get insertion index
+            // Get parent
+            parent = node.getParent();
+            // Get parent insertion index
             int index = whatChildIsThis(node);
-            // Remove node to be new parent item
-            TFNode parent = node.getParent();
-            Item parentItem = node.deleteItem(node.getNumItems() - 1);
-            // Add this node to the parent node
+            // Add parentItem to the parent node
             parent.insertItem(index, parentItem);
             // Fix pointer(s)
-            parent.setChild(index + 1, node);
+            parent.setChild(index + 1, newNode);
+            newNode.setParent(parent);
         }
+        // Otherwise, create a new parent
         else {
-            
+            // Create new parent node
+            parent = new TFNode();
+            // This must be the root, because only the root does not have a parent
+            treeRoot = parent;
+            // Store parentItem in parent
+            parent.insertItem(parent.getNumItems(), parentItem);
+            // Fix pointer(s)
+            parent.setChild(0, node);
+            parent.setChild(parent.getNumItems(), newNode);
+            node.setParent(parent);
+            newNode.setParent(parent);
         }
     }
     
