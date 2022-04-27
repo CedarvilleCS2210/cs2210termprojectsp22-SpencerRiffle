@@ -111,7 +111,7 @@ public class TwoFourTree
         }
         
         // If key exists
-        Item item = inOrderSuccessor(elementNode, key);
+        Item inOrS = inOrderSuccessor(elementNode, key);
         
         Item returnItem = new Item();
         
@@ -128,15 +128,15 @@ public class TwoFourTree
         }
         else {
             //Set up pointer to node that inorder successor is in
-            TFNode currChild = (TFNode) findElement(item.key());
+            TFNode currChild = (TFNode) findElement(inOrS.key());
             
             //replace item you want to remove with the inorder successor
             //and replaceItem will return the item you want to remove
-            returnItem = elementNode.replaceItem(index, item);
+            returnItem = elementNode.replaceItem(index, inOrS);
             
             //find the index of the inorder successor in the node it was originally
             //in
-            index = findFirstGreaterThanOrEqual(currChild, item.key());
+            index = findFirstGreaterThanOrEqual(currChild, inOrS.key());
             
             //Do a shifting remove on the inorder successor
             Item removedItem = currChild.removeItem(index);
