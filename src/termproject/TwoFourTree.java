@@ -151,7 +151,54 @@ public class TwoFourTree
     }
     
     private void fixOverflow(TFNode node) {
-        // TODO
+        // Create overflowItem to store item to overflow
+        Item overflowItem;
+        // Create a new node to contain the overflowed value
+        TFNode newNode = new TFNode();
+        
+        // Get overflowed item
+        if (whatChildIsThis(node) == node.getParent().getNumItems()) {
+            // If rightmost child, overflow leftmost item
+            overflowItem = node.getItem(0);
+            // Remove overflowed item from node
+            node.removeItem(0);
+        }
+        else {
+            // Overflow rightmost item
+            overflowItem = node.getItem(node.getNumItems() - 1);
+            // Remove overflowed item from node
+            node.deleteItem(node.getNumItems());
+            
+            // TODO: FIX
+        }
+        
+        // TODO: FIX
+        
+        // Move overflowed item to new node
+        newNode.insertItem(newNode.getNumItems(), overflowItem);
+        
+        // Shift node's overflowed child pointers to new node's child pointers
+        newNode.setChild(0, node.getChild(node.getMaxItems()));
+        newNode.setChild(newNode.getNumItems(), node.getChild(node.getMaxItems() + 1));
+        // Remove node's overflowed child pointers
+        node.setChild(node.getMaxItems(), null);
+        node.setChild(node.getMaxItems() + 1, null);
+        
+        // If parent exists, move into parent
+        if (node.getParent() != null) {
+            // Get insertion index
+            int index = whatChildIsThis(node);
+            // Remove node to be new parent item
+            TFNode parent = node.getParent();
+            Item parentItem = node.deleteItem(node.getNumItems() - 1);
+            // Add this node to the parent node
+            parent.insertItem(index, parentItem);
+            // Fix pointer(s)
+            parent.setChild(index + 1, node);
+        }
+        else {
+            
+        }
     }
     
     /**
