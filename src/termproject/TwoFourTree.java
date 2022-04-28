@@ -108,7 +108,6 @@ public class TwoFourTree
      * @exception ElementNotFoundException if the key is not in dictionary
      */
     public Object removeElement(Object key) throws ElementNotFoundException {
-        // TODO
         
         // Find node containing key
         TFNode elementNode = (TFNode)findElement(key);
@@ -131,7 +130,7 @@ public class TwoFourTree
                 fixUnderflow(elementNode);
             }
             
-            return returnItem.element();
+            return returnItem.key();
         }
         else {
             // Get inOrderSuccessor node
@@ -147,7 +146,7 @@ public class TwoFourTree
                 fixUnderflow(currChild);
             }
             //return item
-            return returnItem.element();
+            return returnItem.key();
         }
     }
     
@@ -558,6 +557,7 @@ public class TwoFourTree
             myTree.insertElement(arr[i], arr[i]);
             //prints and checks first 25 items
             if(i < 25) {
+                System.out.println("Inserting: " + arr[i]);
                 myTree.printAllElements();
                 myTree.checkTree();
             }
@@ -571,7 +571,7 @@ public class TwoFourTree
             
             //prints and checks last 25 items
             if (i > TEST_SIZE - 25) {
-                System.out.println("Removing" + arr[i]);
+                System.out.println("Removing: " + arr[i]);
                 myTree.printAllElements();
                 myTree.checkTree();
             }
