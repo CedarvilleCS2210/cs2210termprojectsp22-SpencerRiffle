@@ -211,6 +211,11 @@ public class TwoFourTree
         // Get child at index
         TFNode child = node.getChild(childIndice);
         
+        //if item has no inorder successor returns itself
+        if(child == null) {
+            return node.getItem(childIndice);
+        }
+        
         while(child.getChild(0) != null) {
             child = child.getChild(0);
         }
@@ -533,13 +538,13 @@ public class TwoFourTree
 
         myTree = new TwoFourTree(myComp);
         
-        /*
+        
         final int TEST_SIZE = 10000;
 
 
         for (int i = 0; i < TEST_SIZE; i++) {
             myTree.insertElement(new Integer(i), new Integer(i));
-            //          myTree.printAllElements();
+            //         myTree.printAllElements();
             //         myTree.checkTree();
         }
         System.out.println("removing");
@@ -553,7 +558,7 @@ public class TwoFourTree
             }
         }
         System.out.println("done");
-        */
+        
     }
 
     public void printAllElements() {
