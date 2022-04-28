@@ -242,6 +242,11 @@ public class TwoFourTree
         // Remove node's overflowed child pointers
         node.setChild(node.getMaxItems(), null);
         node.setChild(node.getMaxItems() + 1, null);
+        //set Children to point at parent
+        if(newNode.getChild(0) != null) {
+            newNode.getChild(0).setParent(newNode);
+            newNode.getChild(newNode.getNumItems()).setParent(newNode);
+        }
         
         // If parent exists, move into parent
         if (node.getParent() != null) {
@@ -261,6 +266,8 @@ public class TwoFourTree
         }
         // Otherwise, create a new parent
         else {
+            //isue connect chuildrerfghbnn
+            
             // Create new parent node
             parent = new TFNode();
             // This must be the root, because only the root does not have a parent
@@ -526,6 +533,7 @@ public class TwoFourTree
 
         myTree = new TwoFourTree(myComp);
         
+        /*
         final int TEST_SIZE = 10000;
 
 
@@ -545,6 +553,7 @@ public class TwoFourTree
             }
         }
         System.out.println("done");
+        */
     }
 
     public void printAllElements() {
