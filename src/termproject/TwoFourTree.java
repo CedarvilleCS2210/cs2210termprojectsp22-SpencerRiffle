@@ -2,6 +2,7 @@ package termproject;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Random;
 
 /**
  * Title:        Term Project 2-4 Trees
@@ -540,12 +541,20 @@ public class TwoFourTree
         
         
         final int TEST_SIZE = 10000;
+        
+        // Testing for 10,000 integer values 
+        
+        int[] arr = new int[TEST_SIZE];
+        Random rd = new Random(TEST_SIZE/5);
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = rd.nextInt();
+        }
 
 
         for (int i = 0; i < TEST_SIZE; i++) {
             myTree.insertElement(new Integer(i), new Integer(i));
-            //         myTree.printAllElements();
-            //         myTree.checkTree();
+                    // myTree.printAllElements();
+                   // myTree.checkTree();
         }
         System.out.println("removing");
         for (int i = 0; i < TEST_SIZE; i++) {
