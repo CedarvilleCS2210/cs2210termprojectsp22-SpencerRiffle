@@ -131,7 +131,7 @@ public class TwoFourTree
                 fixUnderflow(elementNode);
             }
             
-            return returnItem;
+            return returnItem.element();
         }
         else {
             // Get inOrderSuccessor node
@@ -147,7 +147,7 @@ public class TwoFourTree
                 fixUnderflow(currChild);
             }
             //return item
-            return returnItem;
+            return returnItem.element();
         }
     }
     
@@ -439,7 +439,8 @@ public class TwoFourTree
     public static void main(String[] args) {
         Comparator myComp = new IntegerComparator();
         TwoFourTree myTree = new TwoFourTree(myComp);
-
+        
+        /*
         Integer myInt1 = new Integer(47);
         myTree.insertElement(myInt1, myInt1);
         myTree.printAllElements();
@@ -536,34 +537,43 @@ public class TwoFourTree
 
         myTree.printAllElements();
         System.out.println("done");
+        */
 
-        myTree = new TwoFourTree(myComp);
+        //myTree = new TwoFourTree(myComp);
         
         
         final int TEST_SIZE = 10000;
         
         // Testing for 10,000 integer values 
-        
         int[] arr = new int[TEST_SIZE];
-        Random rd = new Random(TEST_SIZE/5);
+        Random rd = new Random();
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = rd.nextInt();
+            arr[i] = rd.nextInt(TEST_SIZE / 5);
         }
+        
 
-
+        System.out.println("inserting");
         for (int i = 0; i < TEST_SIZE; i++) {
-            myTree.insertElement(new Integer(i), new Integer(i));
-                    // myTree.printAllElements();
-                   // myTree.checkTree();
+            //Adding key and element values from array to tree
+            myTree.insertElement(arr[i], arr[i]);
+            //prints and checks first 25 items
+            if(i < 25) {
+                myTree.printAllElements();
+                myTree.checkTree();
+            }
         }
         System.out.println("removing");
         for (int i = 0; i < TEST_SIZE; i++) {
-            int out = (Integer) myTree.removeElement(new Integer(i));
-            if (out != i) {
+            int out = (Integer) myTree.removeElement(arr[i]);
+            if (out != arr[i]) {
                 throw new TwoFourTreeException("main: wrong element removed");
             }
-            if (i > TEST_SIZE - 15) {
+            
+            //prints and checks last 25 items
+            if (i > TEST_SIZE - 25) {
+                System.out.println("Removing" + arr[i]);
                 myTree.printAllElements();
+                myTree.checkTree();
             }
         }
         System.out.println("done");
