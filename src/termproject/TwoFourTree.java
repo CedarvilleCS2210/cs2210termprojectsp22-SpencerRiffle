@@ -436,6 +436,7 @@ public class TwoFourTree
         Comparator myComp = new IntegerComparator();
         TwoFourTree myTree = new TwoFourTree(myComp);
         
+        /*
         Integer myInt1 = new Integer(47);
         myTree.insertElement(myInt1, myInt1);
         //myTree.printAllElements();
@@ -532,38 +533,11 @@ public class TwoFourTree
 
         myTree.printAllElements();
         System.out.println("done");
+        */
         
-        //Testing Left transfer
-        System.out.println("Removing 66 to cause LT");
-        int out = (Integer) myTree.removeElement(66);
-        if(out != 66) {
-            System.out.println("Incorrect element removed.");
-        }
-        myTree.printAllElements();
-        myTree.checkTree();
-        
-        //Testing Right Transfer
-        //CAUSES AN ERROR
-        System.out.println("Removing 53 to cause RT");
-        out = (Integer) myTree.removeElement(53);
-        if(out != 53) {
-            System.out.println("Incorrect element removed.");
-        }
-        myTree.printAllElements();
-        myTree.checkTree();
-
-        //Testing Left Fusion
-        System.out.println("Removing 83 to cause LF");
-        out = (Integer) myTree.removeElement(83);
-        if(out != 83) {
-            System.out.println("Incorrect element removed.");
-        }
-        myTree.printAllElements();
-        myTree.checkTree();
         
         //myTree = new TwoFourTree(myComp);
         
-        /*
         final int TEST_SIZE = 10000;
         
         // Testing for 10,000 integer values 
@@ -600,7 +574,7 @@ public class TwoFourTree
             }
         }
         System.out.println("done");
-        */
+        
     }
 
     public void printAllElements() {
