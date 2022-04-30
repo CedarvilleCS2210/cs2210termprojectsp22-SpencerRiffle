@@ -552,6 +552,15 @@ public class TwoFourTree
         myTree.printAllElements();
         myTree.checkTree();
 
+        //Testing Left Fusion
+        System.out.println("Removing 83 to cause LF");
+        out = (Integer) myTree.removeElement(83);
+        if(out != 83) {
+            System.out.println("Incorrect element removed.");
+        }
+        myTree.printAllElements();
+        myTree.checkTree();
+        
         //myTree = new TwoFourTree(myComp);
         
         /*
