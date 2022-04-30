@@ -535,10 +535,70 @@ public class TwoFourTree
         System.out.println("done");
         */
         
+        // Duplucate test
+        int[] arr = new int[7];
+        
+        Integer myInt1 = new Integer(5);
+        myTree.insertElement(myInt1, myInt1);
+        arr[0] = myInt1;
+        myTree.checkTree();
+        myTree.printAllElements();
+        
+        Integer myInt2 = new Integer(7);
+        myTree.insertElement(myInt2, myInt2);
+        arr[1] = myInt2;
+        myTree.checkTree();
+        myTree.printAllElements();
+        
+        Integer myInt3 = new Integer(5);
+        myTree.insertElement(myInt3, myInt3);
+        arr[2] = myInt3;
+        myTree.checkTree();
+        myTree.printAllElements();
+        
+        Integer myInt4 = new Integer(5);
+        myTree.insertElement(myInt4, myInt4);
+        arr[3] = myInt4;
+        myTree.checkTree();
+        myTree.printAllElements();
+        
+        Integer myInt5 = new Integer(5);
+        myTree.insertElement(myInt5, myInt5);
+        arr[4] = myInt5;
+        myTree.checkTree();
+        myTree.printAllElements();
+        
+        Integer myInt6 = new Integer(5);
+        myTree.insertElement(myInt6, myInt6);
+        arr[5] = myInt6;
+        myTree.checkTree();
+        myTree.printAllElements();
+        
+        Integer myInt7 = new Integer(5);
+        myTree.insertElement(myInt7, myInt7);
+        arr[6] = myInt7;
+        myTree.checkTree();
+        myTree.printAllElements();
+        
+        
+        System.out.println("removing");
+        for (int i = 0; i < 7; i++) {
+            System.out.println("Removing: " + arr[i]);
+            int out = (Integer) myTree.removeElement(arr[i]);
+            if (out != arr[i]) {
+                throw new TwoFourTreeException("main: wrong element removed");
+            }
+            
+            // Check result
+            myTree.printAllElements();
+            myTree.checkTree();
+        }
+        
         
         //myTree = new TwoFourTree(myComp);
         
-        final int TEST_SIZE = 10000;
+        /*
+        final int TEST_SIZE = 25;
         
         // Testing for 10,000 integer values 
         int[] arr = new int[TEST_SIZE];
@@ -561,6 +621,7 @@ public class TwoFourTree
         }
         System.out.println("removing");
         for (int i = 0; i < TEST_SIZE; i++) {
+            System.out.println("Removing: " + arr[i]);
             int out = (Integer) myTree.removeElement(arr[i]);
             if (out != arr[i]) {
                 throw new TwoFourTreeException("main: wrong element removed");
@@ -574,6 +635,7 @@ public class TwoFourTree
             }
         }
         System.out.println("done");
+        */
         
     }
 
