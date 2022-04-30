@@ -302,37 +302,29 @@ public class TwoFourTree
             node = null;
         }
         // Determine leftTranfser
-        else if (whatChildIsThis(node) > 0) {
-            if (parent.getChild(whatChildIsThis(node) - 1).getNumItems() >= MIN_ITEMS) {
-                leftTransfer(node);
-            }
+        else if (whatChildIsThis(node) > 0 && parent.getChild(whatChildIsThis(node) - 1).getNumItems() >= MIN_ITEMS) {
+               leftTransfer(node);
         }
         // Determine rightTransfer
-        else if (whatChildIsThis(node) < parent.getNumItems()) {
-            if (parent.getChild(whatChildIsThis(node) + 1).getNumItems() >= MIN_ITEMS) {
-                rightTransfer(node);
-            }
+        else if (whatChildIsThis(node) < parent.getNumItems() && parent.getChild(whatChildIsThis(node) + 1).getNumItems() >= MIN_ITEMS) {
+               rightTransfer(node);
         }
         // Determine leftFusion
-        else if (whatChildIsThis(node) > 0) {
-            if (parent.getChild(whatChildIsThis(node) - 1).getNumItems() == 1) {
-                leftFusion(node);
+        else if (whatChildIsThis(node) > 0 && parent.getChild(whatChildIsThis(node) - 1).getNumItems() == 1) {
+            leftFusion(node);
                 
-                // Check for underflow at end
-                if (parent.getNumItems() == 0) {
-                    fixUnderflow(parent);
-                }
+            // Check for underflow at end
+            if (parent.getNumItems() == 0) {
+                fixUnderflow(parent);
             }
         }
         // Determine rightFusion
-        else if (whatChildIsThis(node) < parent.getNumItems()) {
-            if (parent.getChild(whatChildIsThis(node) + 1).getNumItems() == 1) {
-                rightFusion(node);
+        else if (whatChildIsThis(node) < parent.getNumItems() && parent.getChild(whatChildIsThis(node) + 1).getNumItems() == 1) {
+            rightFusion(node);
                 
-                // Check for underflow at end
-                if (parent.getNumItems() == 0) {
-                    fixUnderflow(parent);
-                }
+            // Check for underflow at end
+            if (parent.getNumItems() == 0) {
+                fixUnderflow(parent);
             }
         }
     }
