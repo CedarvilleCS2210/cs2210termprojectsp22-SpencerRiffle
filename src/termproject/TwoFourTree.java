@@ -302,15 +302,18 @@ public class TwoFourTree
             node = null;
         }
         // Determine leftTranfser
-        else if (whatChildIsThis(node) > 0 && parent.getChild(whatChildIsThis(node) - 1).getNumItems() >= MIN_ITEMS) {
+        else if (whatChildIsThis(node) > 0 && 
+                parent.getChild(whatChildIsThis(node) - 1).getNumItems() >= MIN_ITEMS) {
                leftTransfer(node);
         }
         // Determine rightTransfer
-        else if (whatChildIsThis(node) < parent.getNumItems() && parent.getChild(whatChildIsThis(node) + 1).getNumItems() >= MIN_ITEMS) {
+        else if (whatChildIsThis(node) < parent.getNumItems() && 
+                parent.getChild(whatChildIsThis(node) + 1).getNumItems() >= MIN_ITEMS) {
                rightTransfer(node);
         }
         // Determine leftFusion
-        else if (whatChildIsThis(node) > 0 && parent.getChild(whatChildIsThis(node) - 1).getNumItems() == 1) {
+        else if (whatChildIsThis(node) > 0 && 
+                parent.getChild(whatChildIsThis(node) - 1).getNumItems() == 1) {
             leftFusion(node);
                 
             // Check for underflow at end
@@ -319,7 +322,8 @@ public class TwoFourTree
             }
         }
         // Determine rightFusion
-        else if (whatChildIsThis(node) < parent.getNumItems() && parent.getChild(whatChildIsThis(node) + 1).getNumItems() == 1) {
+        else if (whatChildIsThis(node) < parent.getNumItems() && 
+                parent.getChild(whatChildIsThis(node) + 1).getNumItems() == 1) {
             rightFusion(node);
                 
             // Check for underflow at end
