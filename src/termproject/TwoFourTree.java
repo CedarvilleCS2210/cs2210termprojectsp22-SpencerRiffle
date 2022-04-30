@@ -206,7 +206,7 @@ public class TwoFourTree
         int childIndice = findFirstGreaterThanOrEqual(node, key);
         // Switch to right child unless indice was already the right child
         // Or unless child is only item in node.
-        if (childIndice < node.getNumItems() && node.getNumItems() != 1) {
+        if (childIndice < node.getNumItems()) {
             childIndice++;
         }
         // Get child at index
