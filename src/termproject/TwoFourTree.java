@@ -214,7 +214,7 @@ public class TwoFourTree
         
         //if item has no inorder successor returns itself
         if(child == null) {
-            return node.getItem(childIndice);
+            return node.getItem(childIndice - 1);
         }
         
         while(child.getChild(0) != null) {
@@ -462,7 +462,7 @@ public class TwoFourTree
 
         Integer myInt5 = new Integer(49);
         myTree.insertElement(myInt5, myInt5);
-        myTree.printAllElements();
+        //myTree.printAllElements();
         myTree.checkTree();
 
         Integer myInt6 = new Integer(100);
