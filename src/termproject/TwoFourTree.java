@@ -66,6 +66,30 @@ public class TwoFourTree
             }
         }
     }
+    
+    public TFNode inOrderSuccessorNode(TFNode node, Object key) {
+        // Find Item's left child
+        int childIndice = findFirstGreaterThanOrEqual(node, key);
+        // Switch to right child unless indice was already the right child
+        // Or unless child is only item in node.
+        if (childIndice < node.getNumItems()) {
+            childIndice++;
+        }
+        // Get child at index
+        TFNode child = node.getChild(childIndice);
+        
+        //if item has no inorder successor returns itself
+        if(child == null) {
+            return node;
+        }
+        
+        while(child.getChild(0) != null) {
+            child = child.getChild(0);
+        }
+        
+        // Return leftmost Item in child
+        return child;
+    }
 
     /**
      * Inserts provided element into the Dictionary
@@ -134,13 +158,13 @@ public class TwoFourTree
         }
         else {
             // Get inOrderSuccessor node
-            TFNode currChild = (TFNode) findElement(inOrS.key());
+            TFNode currChild = inOrderSuccessorNode(elementNode, inOrS.key());
             // Replace item to remove with the inOrderSuccessor...
             returnItem = elementNode.replaceItem(index, inOrS);
             // Find index of inOrderSuccessor in the node it was originally in
             index = findFirstGreaterThanOrEqual(currChild, inOrS.key());
             // Do a shifting remove on the inOrderSuccessor
-            Item removedItem = currChild.removeItem(index);
+            currChild.removeItem(index);
             // Check underflow
             if(currChild.getNumItems() == 0) {
                 fixUnderflow(currChild);
