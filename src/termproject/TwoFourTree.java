@@ -169,7 +169,7 @@ public class TwoFourTree
      * @param key
      * @return index of first item greater than or equal
      */
-    protected int findFirstGreaterThanOrEqual(TFNode node, Object key) {
+    private int findFirstGreaterThanOrEqual(TFNode node, Object key) {
         // Check for a valid user key
         if (!treeComp.isComparable(key)) {
             throw new TwoFourTreeException("User's key was not comparable");
@@ -194,7 +194,7 @@ public class TwoFourTree
      * @param node
      * @return parent's index number of the child
      */
-    protected int whatChildIsThis(TFNode node) {
+    private int whatChildIsThis(TFNode node) {
         // Check for null parent
         if (node.getParent() == null) {
             throw new TwoFourTreeException("Node's parent does not exist");
@@ -614,7 +614,7 @@ public class TwoFourTree
             }
             if(i > TEST_SIZE - 25) {
                 System.out.println("Removing: " + arr[i]);
-                // myTree.printAllElements();
+                myTree.printAllElements();
                 myTree.checkTree();
             }
         }
