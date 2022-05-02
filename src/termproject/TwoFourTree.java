@@ -325,7 +325,9 @@ public class TwoFourTree
         if (parent == null) {
             // Set child to root and remove old node
             treeRoot = node.getChild(0);
-            node.setParent(null);
+            if (treeRoot != null) {
+                treeRoot.setParent(null);
+            }
             node = null;
         }
         // Fix itself; the underflowed parent resulting from a prev underflow
@@ -621,7 +623,7 @@ public class TwoFourTree
         
         //myTree = new TwoFourTree(myComp);
         
-        final int TEST_SIZE = 25;
+        final int TEST_SIZE = 10000;
         
         // Testing for 10,000 integer values 
         int[] arr = new int[TEST_SIZE];
@@ -637,7 +639,7 @@ public class TwoFourTree
             //prints and checks first 25 items
             if(i < 25) {
                 System.out.println("Inserting: " + arr[i]);
-                myTree.printAllElements();
+                // myTree.printAllElements();
                 myTree.checkTree();
             }
         }
@@ -651,7 +653,7 @@ public class TwoFourTree
                 throw new TwoFourTreeException("main: wrong element removed");
             }
             
-            myTree.printAllElements();
+            // myTree.printAllElements();
             myTree.checkTree();
         }
         System.out.println("done");
