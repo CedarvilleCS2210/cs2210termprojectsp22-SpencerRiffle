@@ -115,6 +115,7 @@ public class TwoFourTree
         
         // At a leaf; insert item
         curr.insertItem(index, item);
+        size++;
         // Fix pointer(s) (must be null, because inserting at leaf)
         curr.setChild(index + 1, null);
         // Check for overflow
@@ -147,6 +148,7 @@ public class TwoFourTree
         // If node is a leaf
         if(elementNode.getChild(0) == null) {
             returnItem = elementNode.removeItem(index);
+            size--;
             
             if(elementNode.getNumItems() == 0) {
                 fixUnderflow(elementNode);
@@ -166,6 +168,7 @@ public class TwoFourTree
             // Do a shifting remove on the inOrderSuccessor
             // Don't need to fix pointers, since took leftmost
             currChild.removeItem(index);
+            size--;
             // Check underflow
             if(currChild.getNumItems() == 0) {
                 fixUnderflow(currChild);
@@ -643,19 +646,25 @@ public class TwoFourTree
                 myTree.checkTree();
             }
         }
+        System.out.println("Tree Size: " + myTree.size());
         
         System.out.println("removing");
         for (int i = 0; i < TEST_SIZE; i++) {
-            System.out.println("Removing: " + arr[i]);
+            //System.out.println("Removing: " + arr[i]);
             
             int out = (Integer) myTree.removeElement(arr[i]);
             if (out != arr[i]) {
                 throw new TwoFourTreeException("main: wrong element removed");
             }
             
-            // myTree.printAllElements();
-            myTree.checkTree();
+            if(i > TEST_SIZE - 25) {
+                System.out.println("Removing: " + arr[i]);
+                // myTree.printAllElements();
+                myTree.checkTree();
+            }
         }
+        System.out.println("Tree Empty: " + myTree.isEmpty());
+        
         System.out.println("done");
         
     }
